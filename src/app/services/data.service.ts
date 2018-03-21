@@ -7,8 +7,11 @@ export class DataService {
   constructor(private dummyData: DummyData) { }
 
   getContacts() {
-    console.log("asd");
     return this.dummyData.getContactList();
+  }
+
+  getMessages(contactId: number) {
+    return this.dummyData.getMessages(contactId);
   }
 
 }

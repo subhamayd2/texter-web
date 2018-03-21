@@ -6,13 +6,15 @@
       </div>
       <div class="col-sm-12 px-0 side-pane-list">
         <ul class="list-group">
-          <li class="list-group-item contact" *ngFor="let contact of contacts">
+          <a class="list-group-item list-group-item-action contact" (click)="onContactSelect(contact)" *ngFor="let contact of contacts">
             <p><strong>{{contact.name}}</strong></p>
             <small>{{contact.lastMessage}}</small>
-          </li>
+          </a>
         </ul>
       </div>
     </div>
   </div>
-  <div class="col-sm-8 text-pane mh-100"></div>
+  <div class="col-sm-8 text-pane mh-100">
+    
+  </div>
 </div>

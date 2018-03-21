@@ -29,11 +29,29 @@
             max-height: calc(100vh - #{$header-height});
 
             .list-group-item {
-                padding-top: 6px;
-                padding-bottom: 6px;
+                padding-top: 8px;
+                padding-bottom: 8px;
+                border: none;
+                position: relative;
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 1px;
+                    top: auto;
+                    height: 0;
+                    width: 85%;
+                    left: 50%;
+                    -webkit-transform: translateX(-50%);
+                    -ms-transform: translateX(-50%);
+                    transform: translateX(-50%);
+                    border-top: 1px solid $list-divider;
+                }
             }
 
             .contact {
+                cursor: pointer;
+
                 p {
                     margin: 0;
                 }
