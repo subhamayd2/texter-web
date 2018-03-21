@@ -1,0 +1,18 @@
+<div class="row m-0 wrapper">
+  <div class="col-sm-4 side-pane mh-100">
+    <div class="row">
+      <div class="col-sm-12 px-0 side-pane-header">
+        <span>Texter</span>
+      </div>
+      <div class="col-sm-12 px-0 side-pane-list">
+        <ul class="list-group">
+          <li class="list-group-item contact" *ngFor="let contact of contacts">
+            <p><strong>{{contact.name}}</strong></p>
+            <small>{{contact.lastMessage}}</small>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-8 text-pane mh-100"></div>
+</div>
