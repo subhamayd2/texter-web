@@ -3,6 +3,14 @@
 
 .wrapper {
     height: 100vh;
+    width: 100%;
+    max-width: 1400px;
+    min-width: 650px;
+    left: 50%;
+    position: absolute;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
 }
 
 .side-pane {
@@ -24,29 +32,50 @@
                 font-family: $logo-font;
             }
         }
+
+        .side-pane-searchbar {
+            background: #f5f5f5;
+            padding: 8px 15px;
+
+            input {
+                width: 100%;
+                border: none;
+                padding: 6px 20px;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+
+                &::placeholder  {
+                    color: $placeholder-color;
+                    font-size: smaller;
+                }
+                &::-moz-placeholder {
+                    color: $placeholder-color;
+                    font-size: smaller;
+                }
+                &::-webkit-input-placeholder {
+                    color: $placeholder-color;
+                    font-size: smaller;
+                }
+                &::-ms-input-placeholder {
+                    color: $placeholder-color;
+                    font-size: smaller;
+                }
+                &:-ms-input-placeholder {
+                    color: $placeholder-color;
+                    font-size: smaller;
+                }
+            }
+        }
+
         .side-pane-list {
             overflow-y: auto;
             max-height: calc(100vh - #{$header-height});
 
             .list-group-item {
-                padding-top: 8px;
-                padding-bottom: 8px;
+                padding: 0;
                 border: none;
                 position: relative;
-
-                &::after {
-                    content: '';
-                    position: absolute;
-                    bottom: 1px;
-                    top: auto;
-                    height: 0;
-                    width: 85%;
-                    left: 50%;
-                    -webkit-transform: translateX(-50%);
-                    -ms-transform: translateX(-50%);
-                    transform: translateX(-50%);
-                    border-top: 1px solid $list-divider;
-                }
             }
 
             .contact {
@@ -60,5 +89,129 @@
                 }
             }
         }
+    }
+}
+
+
+.text-pane {
+    background: #eeede9;
+}
+
+.contact-item {
+    /* padding: 10px 18px; */
+    display: -webkit-flex;
+    display: flex;
+    height: 100%;
+
+    
+
+
+    .contact-item-body {
+        position: relative;
+        width: 100%;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 1px;
+            top: auto;
+            height: 0;
+            width: 100%;
+            border-top: 1px solid $list-divider;
+        }
+
+        
+        .contact-item-body-msg {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+}
+
+.text-pane-header {
+    height: $header-height;
+    background: #f5f5f5;
+    border-bottom: 1px solid #cacaca;
+    padding: 0;
+    display: -webkit-flex;
+    display: flex;
+}
+
+
+.contact-item-img {
+    margin: 10px 15px 10px 18px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: $contact-item-img-size;
+    height: $contact-item-img-size;
+    background: #dfad23;
+    line-height: $contact-item-img-size;
+    color: white;
+    font-size: $contact-item-img-text-size;
+    text-align: center;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.contact-item-body-name {
+    margin-top: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.text-pane {
+    .contact-item-body-name {
+        height: 100%;
+        margin: 0;
+        span {
+            line-height: calc(#{$header-height} - 0.5em);
+        }
+    }
+}
+
+.search-result {
+    strong {
+        span {
+            b {
+                color: $primary-color;
+            }
+        }
+    }
+}
+
+.empty-contacts-search {
+    p {
+        padding: 8px 0;
+        text-align: center;
+        font-size: smaller;
+        color: $secondary-text-color;
+    }
+}
+
+.text-pane-body {
+    .list-group-item {
+        background: none;
+        border: none;
+    }
+}
+
+.message {
+    span {
+        padding: 8px 15px;
+    }
+}
+.message-self {
+    span {
+        float: right;
+        background: $self-message-color;
+        color: white;
+    }
+}
+.message-other {
+    span {
+        background: $other-message-color;
     }
 }

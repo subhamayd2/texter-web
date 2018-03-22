@@ -53,7 +53,8 @@ export class DummyData {
             let message: MessageModel = {
                 id: i,
                 message: `Hey this is a test message ${i}`,
-                timestamp: timestamp
+                timestamp: timestamp,
+                isSelf: (i%2 == 0)
             }
             m.push(message);
             let messages: MessagesModel = {

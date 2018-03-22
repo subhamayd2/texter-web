@@ -4,17 +4,74 @@
       <div class="col-sm-12 px-0 side-pane-header">
         <span>Texter</span>
       </div>
+      <div class="col-sm-12 side-pane-searchbar">
+        <input type="text" placeholder="Search" [(ngModel)]="searchQuery" name="search" (ngModelChange)="startSearch($event)">
+      </div>
       <div class="col-sm-12 px-0 side-pane-list">
         <ul class="list-group">
+          <li *ngIf="searchQuery && contacts.length < 1" class="empty-contacts-search">
+            <p>Sorry! No such contacts found</p>
+          </li>
           <a class="list-group-item list-group-item-action contact" (click)="onContactSelect(contact)" *ngFor="let contact of contacts">
-            <p><strong>{{contact.name}}</strong></p>
-            <small>{{contact.lastMessage}}</small>
+            <div class="contact-item">
+              <div class="contact-item-img">
+                <div class="contact-item-img-text">
+                  {{contact.name | contactIcon}}
+                </div>
+              </div>
+
+              <div class="contact-item-body">
+                <div class="contact-item-body-name">
+                  <div *ngIf="!searchQuery">
+                    <span><strong>{{contact.name}}</strong></span>
+                  </div>
+                  <div *ngIf="searchQuery" class="search-result">
+
+                    <strong>
+                      <span [innerHTML]="contact.name | searchHighlight:searchQuery | safeHtml"></span>
+                    </strong>
+                  </div>
+                </div>
+                <div class="contact-item-body-msg">
+                  <small>{{contact.lastMessage}}</small>
+                </div>
+              </div>
+            </div>
+            
           </a>
         </ul>
       </div>
     </div>
   </div>
   <div class="col-sm-8 text-pane mh-100">
-    
+    <div class="row" *ngIf="displayedMessage">
+      <div class="col-sm-12 text-pane-header">
+        <div class="contact-item-img">
+          <div class="contact-item-img-text">
+            {{displayedMessage.contact.name | contactIcon}}
+          </div>
+        </div>
+
+        <div class="contact-item-body">
+          <div class="contact-item-body-name">
+            
+              <span>
+                {{displayedMessage.contact.name}}
+              </span>
+            
+          </div>
+        </div>
+
+      </div>
+      <div class="col-sm-12 text-pane-body">
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let message of displayedMessage.messages">
+            <div class="message" [ngClass]="message.isSelf? 'message-self' : 'message-other'">
+              <span>{{message.message}}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>

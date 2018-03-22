@@ -1,5 +1,6 @@
 export interface MessageModel {
     id: number,
     message: string,
-    timestamp: string
+    timestamp: string,
+    isSelf: boolean
 }
