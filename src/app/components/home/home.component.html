@@ -5,14 +5,21 @@
         <span>Texter</span>
       </div>
       <div class="col-sm-12 side-pane-searchbar">
-        <input type="text" placeholder="Search" [(ngModel)]="searchQuery" name="search" (ngModelChange)="startSearch($event)">
+        <div class="searchbar-wrapper">
+          <div class="search-icon-wrapper" (click)="clearSearch($event)">
+            <i class="fa fa-arrow-left" [ngClass]="searchQuery == null || searchQuery == ''? 'spin-left-out':'spin-left-in'"></i>
+            <i class="fa fa-search" [ngClass]="searchQuery == null || searchQuery == ''? 'spin-right-in':'spin-right-out'"></i>
+          </div>
+          
+          <input type="text" placeholder="Search" [(ngModel)]="searchQuery" name="search" (ngModelChange)="startSearch($event)">
+        </div>
       </div>
       <div class="col-sm-12 px-0 side-pane-list">
         <ul class="list-group">
           <li *ngIf="searchQuery && contacts.length < 1" class="empty-contacts-search">
             <p>Sorry! No such contacts found</p>
           </li>
-          <a class="list-group-item list-group-item-action contact" (click)="onContactSelect(contact)" *ngFor="let contact of contacts">
+          <a class="list-group-item list-group-item-action contact" (click)="onContactSelect(contact)" *ngFor="let contact of contacts"  [@itemRemove]='state'>
             <div class="contact-item">
               <div class="contact-item-img">
                 <div class="contact-item-img-text">
@@ -67,11 +74,22 @@
         <ul class="list-group">
           <li class="list-group-item" *ngFor="let message of displayedMessage.messages">
             <div class="message" [ngClass]="message.isSelf? 'message-self' : 'message-other'">
-              <span>{{message.message}}</span>
+              <div class="message-wrapper">
+                <span>
+                  {{message.message}}
+                </span>
+                <span class="message-timestamp">{{message.timestamp | date:'MMM dd yyyy, hh:mm a'}}</span>
+              </div>
             </div>
           </li>
         </ul>
       </div>
+
+      <div class="col-sm-12 text-pane-textbox">
+        
+      </div>
+
+
     </div>
   </div>
 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 import { DataService } from '../../services/data.service';
 import { ContactModel } from '../../models/contact.model';
 import { MessagesModel } from '../../models/messages.model';
@@ -8,7 +9,23 @@ import { MessageModel } from '../../models/message.model';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  animations: [
+    trigger('itemRemove', [
+      state('*', style({
+        transform: 'translateX(0)',
+        opacity: '1'
+      })),
+      state('void', style({
+        transform: 'translateX(-50%)',
+        opacity: '0'
+      })),
+
+      transition('* => void', animate('200ms ease-in')),
+      transition('void => *', animate('200ms ease-in'))
+
+    ])
+  ]
 })
 export class HomeComponent implements OnInit {
 
@@ -20,7 +37,7 @@ export class HomeComponent implements OnInit {
 
   displayedMessage: MessagesModel;
 
-  searchQuery: string;
+  searchQuery: string = null;
 
   constructor(private dataService: DataService) { }
 
@@ -69,5 +86,10 @@ export class HomeComponent implements OnInit {
         return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
+  }
+
+  clearSearch(event) {
+    this.initializeContactsFromBackup();
+    this.searchQuery = '';
   }
 }
