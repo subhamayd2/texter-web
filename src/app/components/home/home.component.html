@@ -71,17 +71,26 @@
 
       </div>
       <div class="col-sm-12 text-pane-body">
-        <ul class="list-group">
-          <li class="list-group-item" *ngFor="let message of displayedMessage.messages">
-            <div class="message" [ngClass]="message.isSelf? 'message-self' : 'message-other'">
-              <div class="message-wrapper">
+        <ul class="list-group" ngx-auto-scroll #scrollMessage lock-y-offset="10">
+          <div class="list-group-message-wrapper" *ngFor="let message of displayedMessage.messages | messageGroupByDate:'timestamp'">
+            <li class="list-group-item">
+              <div class="timestamp-group">
                 <span>
-                  {{message.message}}
+                  {{message.key | timestampToDay}}
                 </span>
-                <span class="message-timestamp">{{message.timestamp | date:'MMM dd yyyy, hh:mm a'}}</span>
               </div>
-            </div>
-          </li>
+            </li>
+            <li class="list-group-item" *ngFor="let msg of message.value">
+              <div class="message" [ngClass]="msg.isSelf? 'message-self' : 'message-other'">
+                <div class="message-wrapper">
+                  <span>
+                    {{msg.message}}
+                  </span>
+                  <span class="message-timestamp">{{msg.timestamp | date:'MMM dd yyyy, hh:mm a'}}</span>
+                </div>
+              </div>
+            </li>
+          </div>
         </ul>
       </div>
 

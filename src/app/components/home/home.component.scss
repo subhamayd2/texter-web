@@ -187,7 +187,7 @@
     flex-shrink: 0;
     width: $contact-item-img-size;
     height: $contact-item-img-size;
-    background: #dfad23;
+    background: $contact-image-color;
     line-height: $contact-item-img-size;
     color: white;
     font-size: $contact-item-img-text-size;
@@ -236,6 +236,10 @@
 .text-pane-body {
     overflow-y: auto;
     height: calc(100vh - #{$header-height*2});
+
+    .list-group {
+        padding-bottom: 10px;
+    }
     .list-group-item {
         background: none;
         border: none;
@@ -310,4 +314,37 @@
     background: $header-secondary-color;
     position: absolute;
     bottom: 0;
+}
+
+.list-group-message-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+
+    li {
+        padding-bottom: 0;
+    }
+}
+
+.timestamp-group {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: space-around;
+
+    span {
+        padding: 5px 10px;
+        font-size: 9pt;
+        background: $light-blue;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.25);
+        -moz-box-shadow: 1px 1px 1px rgba(0,0,0,0.25);
+        box-shadow: 1px 1px 1px rgba(0,0,0,0.25);
+    }
 }

@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 import { DataService } from '../../services/data.service';
 import { ContactModel } from '../../models/contact.model';
 import { MessagesModel } from '../../models/messages.model';
 import { MessageModel } from '../../models/message.model';
+import { NgxAutoScroll } from "ngx-auto-scroll";
 
 @Component({
   selector: 'app-home',
@@ -29,6 +30,12 @@ import { MessageModel } from '../../models/message.model';
 })
 export class HomeComponent implements OnInit {
 
+  @ViewChild('scrollMessage') ngxAutoScroll: NgxAutoScroll;
+
+  /* @ViewChild('textPaneScroll') private textPaneScroll: ElementRef;
+
+  disableScrollDown = false; */
+
   contacts: Array<ContactModel> = [];
 
   messages: Array<MessagesModel> = [];
@@ -39,6 +46,7 @@ export class HomeComponent implements OnInit {
 
   searchQuery: string = null;
 
+
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
@@ -46,7 +54,16 @@ export class HomeComponent implements OnInit {
     this.contactsSearchBackup = this.contacts;
   }
 
+  /* ngAfterViewChecked() {
+    this.scrollToBottom();
+  } */
+
+  private forceScrollDown(): void {
+    this.ngxAutoScroll.forceScrollDown();
+  }
+
   onContactSelect(contact: ContactModel) {
+    
     console.dir(contact);
     if (this.messages.length == 0) {
       this.getMessagesFromServer(contact.id);
@@ -62,10 +79,18 @@ export class HomeComponent implements OnInit {
         this.getMessagesFromServer(contact.id);
       }
     }
+    //this.forceScrollDown();
   }
 
   getMessagesFromServer(id: number) {
     let messages: MessagesModel = this.dataService.getMessages(id);
+    messages.messages.sort((m1: MessageModel, m2: MessageModel) => {
+      let d1 = new Date(m1.timestamp);
+      let d2 = new Date(m2.timestamp);
+      if (d1 == d2) return 0;
+      else if (d1 > d2) return 1;
+      else return -1;
+    })
     this.messages.push(messages);
     this.displayedMessage = messages;
     console.dir(this.messages);
@@ -92,4 +117,25 @@ export class HomeComponent implements OnInit {
     this.initializeContactsFromBackup();
     this.searchQuery = '';
   }
+
+  /* private onScroll() {
+    let element = this.textPaneScroll.nativeElement
+    let atBottom = element.scrollHeight - element.scrollTop === element.clientHeight
+    if (this.disableScrollDown && atBottom) {
+      this.disableScrollDown = false
+    } else {
+      this.disableScrollDown = true
+    }
+  }
+
+
+  private scrollToBottom(): void {
+    
+     if (this.disableScrollDown) {
+      return
+    } 
+    try {
+      this.textPaneScroll.nativeElement.scrollTop = this.textPaneScroll.nativeElement.scrollHeight;
+    } catch (err) { }
+  } */
 }
