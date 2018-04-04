@@ -16,7 +16,10 @@ import { SearchHighlightPipe } from './pipes/search-highlight.pipe';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { MessageGroupByDatePipe } from './pipes/message-group-by-date.pipe';
 import { TimestampToDayPipe } from './pipes/timestamp-to-day.pipe';
-
+import { LoginComponent } from './components/login/login.component';
+import { AppSocketModule } from './app-socket.module';
+import { SocketService } from './services/socket.service';
+import { CoreModule } from './app-core.module';
 
 
 @NgModule({
@@ -28,15 +31,18 @@ import { TimestampToDayPipe } from './pipes/timestamp-to-day.pipe';
     SafeHtmlPipe,
     MessageGroupByDatePipe,
     TimestampToDayPipe,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    AppSocketModule,
     FormsModule,
     BrowserAnimationsModule,
-    NgxAutoScrollModule
+    NgxAutoScrollModule,
+    CoreModule
   ],
-  providers: [DataService, DummyData],
+  providers: [SocketService, DataService, DummyData],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
