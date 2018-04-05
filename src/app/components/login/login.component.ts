@@ -3,6 +3,7 @@ import * as Fingerprint2 from 'fingerprintjs2';
 import * as QRCode from 'qrcode';
 import { UUID } from 'angular2-uuid';
 import { SocketService } from '../../services/socket.service';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-login',
@@ -14,13 +15,20 @@ export class LoginComponent implements OnInit {
   Fingerprint = null;
   qrImageSrc = null;
 
-  constructor(private socketService: SocketService) { }
+  constructor(private socketService: SocketService, private dataService: DataService) { }
 
   ngOnInit() {
     let _this = this;
-    setTimeout(function () {
-      _this.generateQR();
-    }, 500)
+    this.dataService.getServerConnection()
+      .then((status) => {
+        if (status['statusCode'] == 200) {
+          setTimeout(function () {
+            _this.generateQR();
+            _this.socketService.connect();
+          }, 500);
+        } 
+    })
+     
   }
 
   async generateQR() {
@@ -44,7 +52,9 @@ export class LoginComponent implements OnInit {
 
   async convertToQR(text) {
     let _this = this;
-    text += UUID.UUID();
+    text += "|" + UUID.UUID();
+    this.dataService.setWebClientDetails(text);
+    this.socketService.sendWebClientDetails();
     let opts = {
       width: 250,
       color: {
