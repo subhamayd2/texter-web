@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
         //console.log(result);
         _this.convertToQR(result);
       });
-    }, 15 * 1000);
+    }, 3600 * 1000);
 
   }
 
