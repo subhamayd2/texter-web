@@ -4,6 +4,8 @@ import * as QRCode from 'qrcode';
 import { UUID } from 'angular2-uuid';
 import { SocketService } from '../../services/socket.service';
 import { DataService } from '../../services/data.service';
+import { Router } from '@angular/router';
+import { EventsService } from 'angular4-events';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,12 @@ export class LoginComponent implements OnInit {
   Fingerprint = null;
   qrImageSrc = null;
 
-  constructor(private socketService: SocketService, private dataService: DataService) { }
+  constructor(
+    private socketService: SocketService,
+    private dataService: DataService,
+    private router: Router,
+    private events: EventsService
+  ) { }
 
   ngOnInit() {
     let _this = this;
@@ -26,8 +33,10 @@ export class LoginComponent implements OnInit {
             _this.generateQR();
             _this.socketService.connect();
           }, 500);
-        } 
-    })
+        }
+      });
+    
+    this.events.subscribe('event:showHome')
      
   }
 

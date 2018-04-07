@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
     "angular2-uuid": "^1.1.1",
+    "angular4-events": "^4.0.1",
     "axios": "^0.18.0",
     "core-js": "^2.4.1",
     "fingerprintjs2": "^1.6.1",

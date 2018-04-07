@@ -20,7 +20,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AppSocketModule } from './app-socket.module';
 import { SocketService } from './services/socket.service';
 import { CoreModule } from './app-core.module';
-
+import { EventsModule } from 'angular4-events';
 
 @NgModule({
   declarations: [
@@ -38,6 +38,7 @@ import { CoreModule } from './app-core.module';
     AppRoutingModule,
     AppSocketModule,
     FormsModule,
+    EventsModule.forRoot(),
     BrowserAnimationsModule,
     NgxAutoScrollModule,
     CoreModule
